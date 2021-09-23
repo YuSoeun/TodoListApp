@@ -34,8 +34,8 @@ public class TodoItem {
         return current_date;
     }
 
-    public void setCurrent_date(Date current_date) {
-        this.current_date = current_date.toString();
+    public void setCurrent_date(String current_date) {
+        this.current_date = current_date;
     }
     public String toSaveString() {
     	return title + "##" + desc + "##" + current_date + "\n";

@@ -1,5 +1,11 @@
 package com.todo.service;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 import com.todo.dao.TodoItem;
@@ -86,5 +92,76 @@ public class TodoUtil {
 		for (TodoItem item : l.getList()) {
 			System.out.println("제목: " + item.getTitle() + "  내용: " + item.getDesc());
 		}
+	}
+	
+	public static void saveList(TodoList l, String filename) {
+		FileWriter fw = null;
+		
+		try {
+			fw = new FileWriter(new File(filename));
+			
+			for (TodoItem item : l.getList()) {
+				fw.write(item.getTitle() + "##" + item.getDesc());
+				fw.write("\n");
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (fw != null) {
+				try {
+					System.out.println("아이템을 모두 저장했습니다.");
+					fw.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	public static void loadList(TodoList l, String filename) {
+		File file = new File(filename);
+
+		if (!file.exists()) {
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		BufferedReader bfr = null;
+		try {
+			bfr = new BufferedReader(new FileReader(filename));
+			String currentLine;
+			
+			while ((currentLine = bfr.readLine()) != null) {
+				StringTokenizer st = new StringTokenizer(currentLine,"##"); 
+				while (st.hasMoreTokens()) {
+					String title = st.nextToken();
+					String desc = st.nextToken();
+					
+					TodoItem t = new TodoItem(title, desc);
+					l.addItem(t);
+				}
+//				System.out.println(st);
+			}
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (IOException e2) {
+			e2.printStackTrace();
+		} finally {
+			System.out.println("아이템을 모두 불러왔습니다.");
+			try {
+				if (bfr != null) {
+					
+					bfr.close();
+				}
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}	
 	}
 }

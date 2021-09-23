@@ -12,6 +12,9 @@ public class TodoMain {
 	
 		Scanner sc = new Scanner(System.in);
 		TodoList l = new TodoList();
+		
+		TodoUtil.loadList(l, "todolist.txt");
+		
 		boolean isList = false;
 		boolean quit = false;
 		do {
@@ -57,6 +60,7 @@ public class TodoMain {
 				break;
 
 			case "exit":
+				TodoUtil.saveList(l, "todolist.txt");
 				quit = true;
 				break;
 
