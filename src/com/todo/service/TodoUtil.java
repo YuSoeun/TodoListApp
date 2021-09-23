@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import com.todo.dao.TodoItem;
@@ -33,6 +35,8 @@ public class TodoUtil {
 		
 		TodoItem t = new TodoItem(title, desc);
 		list.addItem(t);
+		Date date = new Date();
+		t.setCurrent_date(date);
 	}
 
 	public static void deleteItem(TodoList l) {
@@ -60,7 +64,7 @@ public class TodoUtil {
 		
 		System.out.println("\n"
 				+ "========== 수정 부분\n"
-				+ "수정할 이이템의 새 제목을 입력하시오\n"
+				+ "수정할 이이템의 제목을 입력하시오\n"
 				+ "\n");
 		String title = sc.nextLine().trim();
 		if (!l.isDuplicate(title)) {
@@ -101,7 +105,7 @@ public class TodoUtil {
 			fw = new FileWriter(new File(filename));
 			
 			for (TodoItem item : l.getList()) {
-				fw.write(item.getTitle() + "##" + item.getDesc());
+				fw.write(item.toSaveString());
 				fw.write("\n");
 			}
 		} catch (IOException e) {
@@ -142,8 +146,19 @@ public class TodoUtil {
 				while (st.hasMoreTokens()) {
 					String title = st.nextToken();
 					String desc = st.nextToken();
+					String date = st.nextToken();
+
+					SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					Date to = null;
+					try {
+						to = transFormat.parse(date);
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					
 					TodoItem t = new TodoItem(title, desc);
+					t.setCurrent_date(to);
 					l.addItem(t);
 				}
 //				System.out.println(st);
