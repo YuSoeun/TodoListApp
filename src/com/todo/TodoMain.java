@@ -57,7 +57,7 @@ public class TodoMain {
 				break;
 
 			default:
-				System.out.println("please enter one of the above mentioned command");
+				System.out.println("위의 명령어 중 하나를 선택해주세요.");
 				break;
 			}
 			
