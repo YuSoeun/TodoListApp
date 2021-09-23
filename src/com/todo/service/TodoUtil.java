@@ -16,14 +16,14 @@ public class TodoUtil {
 				+ "========== 아이템 생성\n"
 				+ "제목을 입력하시오\n");
 		
-		title = sc.next();
+		title = sc.nextLine();
 		if (list.isDuplicate(title)) {
 			System.out.printf("제목은 중복이 불가합니다");
 			return;
 		}
 		
 		System.out.println("내용을 입력하시오");
-		desc = sc.next();
+		desc = sc.nextLine();
 		
 		TodoItem t = new TodoItem(title, desc);
 		list.addItem(t);
@@ -32,7 +32,7 @@ public class TodoUtil {
 	public static void deleteItem(TodoList l) {
 		
 		Scanner sc = new Scanner(System.in);
-		String title = sc.next();
+		String title = sc.nextLine();
 		
 		System.out.println("\n"
 				+ "========== 아이템 삭제\n"
@@ -56,21 +56,21 @@ public class TodoUtil {
 				+ "========== 수정 부분\n"
 				+ "수정할 이이템의 새 제목을 입력하시오\n"
 				+ "\n");
-		String title = sc.next().trim();
+		String title = sc.nextLine().trim();
 		if (!l.isDuplicate(title)) {
 			System.out.println("해당 제목이 존재하지 않습니다.t");
 			return;
 		}
 
 		System.out.println("아이템의 새로운 제목을 입력하시오");
-		String new_title = sc.next().trim();
+		String new_title = sc.nextLine().trim();
 		if (l.isDuplicate(new_title)) {
 			System.out.println("제목은 중복이 불가합니다");
 			return;
 		}
 		
 		System.out.println("수정할 아이템의 새 내용을 입력하시오");
-		String new_description = sc.next().trim();
+		String new_description = sc.nextLine().trim();
 		for (TodoItem item : l.getList()) {
 			if (item.getTitle().equals(title)) {
 				l.deleteItem(item);

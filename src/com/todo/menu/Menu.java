@@ -1,7 +1,7 @@
 package com.todo.menu;
 public class Menu {
 
-    public static void displaymenu()
+    private static void displaymenu()
     {
         System.out.println();
         System.out.println("1. 아이템 추가 ( add )");
@@ -12,6 +12,14 @@ public class Menu {
         System.out.println("6. 아이템 리스트 이름 역순 정렬 ( ls_name_desc )");
         System.out.println("7. 아이템 리스트 날짜 정렬 ( ls_date )");
         System.out.println("8. 종료 (Or press escape key to exit)");
-        System.out.println("선택하시오 >");
+        System.out.println();
+    }
+    
+    public static void prompt(boolean tf) {
+    	if (tf == true) {
+    		displaymenu();
+    	} else {
+    		System.out.print("명령어를 선택하시오 > ");
+    	}
     }
 }

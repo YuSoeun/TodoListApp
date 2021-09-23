@@ -15,11 +15,15 @@ public class TodoMain {
 		boolean isList = false;
 		boolean quit = false;
 		do {
-			Menu.displaymenu();
+			Menu.prompt(false);
 			isList = false;
 			String choice = sc.next();
 			switch (choice) {
 
+			case "help":
+				Menu.prompt(true);
+				break;
+				
 			case "add":
 				TodoUtil.createItem(l);
 				break;
