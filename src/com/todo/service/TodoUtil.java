@@ -54,15 +54,11 @@ public class TodoUtil {
 		
 		System.out.println("\n"
 				+ "========== 아이템 삭제\n"
-				+ "지울 아이템의 제목을 입력하시오\n"
+				+ "지울 아이템의 번호를 입력하시오\n"
 				+ "\n");
+		int num = sc.nextInt();
 		
-		for (TodoItem item : l.getList()) {
-			if (title.equals(item.getTitle())) {
-				l.deleteItem(item);
-				break;
-			}
-		}
+		l.getList().get(num-1);
 	}
 
 	public static void updateItem(TodoList l) {
