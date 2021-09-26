@@ -50,6 +50,7 @@ public class TodoUtil {
 	public static void deleteItem(TodoList l) {
 		
 		Scanner sc = new Scanner(System.in);
+		ArrayList<TodoItem> list = l.getList();
 		String title = sc.nextLine();
 		
 		System.out.println("\n"
@@ -58,7 +59,15 @@ public class TodoUtil {
 				+ "\n");
 		int num = sc.nextInt();
 		
-		l.getList().get(num-1);
+		if (list.size() < num || num < 1) {
+			System.out.println("해당 번호가 존재하지 않습니다.t");
+			return;
+		}
+		
+		TodoItem myitem = list.get(num-1);
+		System.out.println(num + ". [" + myitem.getCategory() + "] " + myitem.getTitle() + " - " + myitem.getDesc() + " - " + myitem.getDue_date() + " - " + myitem.getCurrent_date());
+		
+		l.deleteItem(myitem);
 	}
 
 	public static void updateItem(TodoList l) {
@@ -75,6 +84,9 @@ public class TodoUtil {
 			System.out.println("해당 번호가 존재하지 않습니다.t");
 			return;
 		}
+		
+		TodoItem myitem = list.get(num-1);
+		System.out.println(num + ". [" + myitem.getCategory() + "] " + myitem.getTitle() + " - " + myitem.getDesc() + " - " + myitem.getDue_date() + " - " + myitem.getCurrent_date());
 		
 		System.out.println("수정할 아이템의 새 카테고리를 입력하시오");
 		String new_category = sc.nextLine().trim();
@@ -100,6 +112,21 @@ public class TodoUtil {
 				System.out.println("수정되었습니다.");
 			}
 		}
+	}
+	
+	public static void findItem(TodoList l) {
+		
+		Scanner sc = new Scanner(System.in);
+		String keyword = sc.nextLine().trim();
+		int count = 0;
+		
+		for (TodoItem myitem : l.getList()) {
+			if (myitem.getTitle().contains(keyword) || myitem.getDesc().contains(keyword)) {
+				System.out.println((l.indexOf(myitem)+1) + ". [" + myitem.getCategory() + "] " + myitem.getTitle() + " - " + myitem.getDesc() + " - " + myitem.getDue_date() + " - " + myitem.getCurrent_date());
+				count++;
+			}
+		}
+		System.out.println("총 " + count + "개의 항목을 찾았습니다.");
 	}
 
 	public static void listAll(TodoList l) {

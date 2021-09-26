@@ -39,6 +39,9 @@ public class TodoMain {
 				TodoUtil.updateItem(l);
 				break;
 				
+			case "find":
+				TodoUtil.findItem(l);
+	
 			case "ls":
 				TodoUtil.listAll(l);
 				break;
