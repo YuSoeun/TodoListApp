@@ -36,10 +36,14 @@ public class TodoList {
 	}
 
 	public void listAll() {
+		int count = 0;
+		
 		System.out.println("\n"
 				+ "inside list_All method\n");
 		for (TodoItem myitem : list) {
-			System.out.println(myitem.getTitle() + " " + myitem.getDesc());
+			count++;
+			
+			System.out.println(count + ". [" + myitem.getCategory() + "] " + myitem.getTitle() + " - " + myitem.getDesc() + " - " + myitem.getDue_date() + " - " + myitem.getCurrent_date());
 		}
 	}
 	
