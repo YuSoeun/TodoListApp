@@ -22,17 +22,17 @@ public class TodoUtil {
 		
 		System.out.println("\n"
 				+ "========== 아이템 생성\n"
-				+ "카테고리를 입력하시오\n");
-		
-		category = sc.nextLine();
-		
-		System.out.println("제목을 입력하시오\n");
+				+ "제목을 입력하시오");
 		
 		title = sc.nextLine();
 		if (list.isDuplicate(title)) {
 			System.out.printf("제목은 중복이 불가합니다");
 			return;
 		}
+		
+		System.out.println("카테고리를 입력하시오");
+		category = sc.nextLine();
+		
 		
 		System.out.println("내용을 입력하시오");
 		desc = sc.nextLine();
@@ -51,16 +51,16 @@ public class TodoUtil {
 		
 		Scanner sc = new Scanner(System.in);
 		ArrayList<TodoItem> list = l.getList();
-		String title = sc.nextLine();
 		
 		System.out.println("\n"
 				+ "========== 아이템 삭제\n"
-				+ "지울 아이템의 번호를 입력하시오\n"
-				+ "\n");
+				+ "지울 아이템의 번호를 입력하시오");
+		
 		int num = sc.nextInt();
+		sc.nextLine();
 		
 		if (list.size() < num || num < 1) {
-			System.out.println("해당 번호가 존재하지 않습니다.t");
+			System.out.println("해당 번호가 존재하지 않습니다.");
 			return;
 		}
 		
@@ -77,19 +77,17 @@ public class TodoUtil {
 		
 		System.out.println("\n"
 				+ "========== 수정 부분\n"
-				+ "수정할 항목의 번호를 입력하시오\n"
-				+ "\n");
+				+ "수정할 항목의 번호를 입력하시오");
 		int num = sc.nextInt();
 		if (list.size() < num || num < 1) {
-			System.out.println("해당 번호가 존재하지 않습니다.t");
+			System.out.println("해당 번호가 존재하지 않습니다.");
 			return;
 		}
 		
 		TodoItem myitem = list.get(num-1);
 		System.out.println(num + ". [" + myitem.getCategory() + "] " + myitem.getTitle() + " - " + myitem.getDesc() + " - " + myitem.getDue_date() + " - " + myitem.getCurrent_date());
 		
-		System.out.println("수정할 아이템의 새 카테고리를 입력하시오");
-		String new_category = sc.nextLine().trim();
+		sc.nextLine();
 
 		System.out.println("아이템의 새로운 제목을 입력하시오");
 		String new_title = sc.nextLine().trim();
@@ -97,6 +95,9 @@ public class TodoUtil {
 			System.out.println("제목은 중복이 불가합니다");
 			return;
 		}
+		
+		System.out.println("수정할 아이템의 새 카테고리를 입력하시오");
+		String new_category = sc.nextLine();
 		
 		System.out.println("수정할 아이템의 새 내용을 입력하시오");
 		String new_description = sc.nextLine().trim();
@@ -109,32 +110,37 @@ public class TodoUtil {
 				l.deleteItem(list.get(i));
 				TodoItem t = new TodoItem(new_category, new_title, new_description, new_due_date);
 				l.addItem(t);
+				Date date = new Date();
+				t.setCurrent_date(date);
 				System.out.println("수정되었습니다.");
 			}
 		}
 	}
 	
-	public static void findItem(TodoList l) {
-		
-		Scanner sc = new Scanner(System.in);
-		String keyword = sc.nextLine().trim();
+	public static void findItem(TodoList l, String keyword) {
 		int count = 0;
 		
-		for (TodoItem myitem : l.getList()) {
-			if (myitem.getTitle().contains(keyword) || myitem.getDesc().contains(keyword)) {
-				System.out.println((l.indexOf(myitem)+1) + ". [" + myitem.getCategory() + "] " + myitem.getTitle() + " - " + myitem.getDesc() + " - " + myitem.getDue_date() + " - " + myitem.getCurrent_date());
-				count++;
+		if (keyword.length() != 0) {
+			for (TodoItem myitem : l.getList()) {
+				if (myitem.getTitle().contains(keyword) || myitem.getDesc().contains(keyword)) {
+					System.out.println((l.indexOf(myitem)+1) + ". [" + myitem.getCategory() + "] " + myitem.getTitle() + " - " + myitem.getDesc() + " - " + myitem.getDue_date() + " - " + myitem.getCurrent_date());
+					count++;
+				}
 			}
 		}
+		
 		System.out.println("총 " + count + "개의 항목을 찾았습니다.");
 	}
 
 	public static void listAll(TodoList l) {
 		ArrayList<TodoItem> list = l.getList();
+		int count = 0;
+		
 		System.out.println("[전체 목록, 총  " + list.size() + "개]");
 		
-		for (TodoItem item : list) {
-			System.out.println("제목: " + item.getTitle() + "  내용: " + item.getDesc());
+		for (TodoItem myitem : list) {
+			count++;
+			System.out.println(count + ". [" + myitem.getCategory() + "] " + myitem.getTitle() + " - " + myitem.getDesc() + " - " + myitem.getDue_date() + " - " + myitem.getCurrent_date());
 		}
 	}
 	
@@ -186,8 +192,8 @@ public class TodoUtil {
 					String category = st.nextToken();
 					String title = st.nextToken();
 					String desc = st.nextToken();
-					String date = st.nextToken();
 					String due_date = st.nextToken();
+					String date = st.nextToken();
 
 					SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 					Date to = null;

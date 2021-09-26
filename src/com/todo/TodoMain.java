@@ -40,7 +40,9 @@ public class TodoMain {
 				break;
 				
 			case "find":
-				TodoUtil.findItem(l);
+				String keyword = sc.nextLine().trim();
+				TodoUtil.findItem(l, keyword);
+				break;
 	
 			case "ls":
 				TodoUtil.listAll(l);
@@ -59,6 +61,12 @@ public class TodoMain {
 				
 			case "ls_date":
 				l.sortByDate();
+				isList = true;
+				break;
+				
+			case "ls_date_desc":
+				l.sortByDate();
+				l.reverseList();
 				isList = true;
 				break;
 
