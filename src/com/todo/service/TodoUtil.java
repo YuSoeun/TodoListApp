@@ -37,6 +37,7 @@ public class TodoUtil {
 		list.addItem(t);
 		Date date = new Date();
 		t.setCurrent_date(date);
+		System.out.println("추가되었습니다.");
 	}
 
 	public static void deleteItem(TodoList l) {
@@ -56,7 +57,6 @@ public class TodoUtil {
 			}
 		}
 	}
-
 
 	public static void updateItem(TodoList l) {
 		
@@ -93,7 +93,10 @@ public class TodoUtil {
 	}
 
 	public static void listAll(TodoList l) {
-		for (TodoItem item : l.getList()) {
+		ArrayList<TodoItem> list = l.getList();
+		System.out.println(list.size());
+		
+		for (TodoItem item : list) {
 			System.out.println("제목: " + item.getTitle() + "  내용: " + item.getDesc());
 		}
 	}
@@ -106,7 +109,6 @@ public class TodoUtil {
 			
 			for (TodoItem item : l.getList()) {
 				fw.write(item.toSaveString());
-				fw.write("\n");
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
