@@ -17,6 +17,7 @@ public class TodoMain {
 		
 		boolean isList = false;
 		boolean quit = false;
+		String keyword = null;
 		do {
 			Menu.prompt(false);
 			isList = false;
@@ -40,8 +41,17 @@ public class TodoMain {
 				break;
 				
 			case "find":
-				String keyword = sc.nextLine().trim();
+				keyword = sc.nextLine().trim();
 				TodoUtil.findItem(l, keyword);
+				break;
+			
+			case "find_cate":
+				keyword = sc.nextLine().trim();
+				TodoUtil.findCateItem(l, keyword);
+				break;
+				
+			case "ls_cate":
+				TodoUtil.printCates(l);
 				break;
 	
 			case "ls":

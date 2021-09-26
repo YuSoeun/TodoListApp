@@ -120,7 +120,7 @@ public class TodoUtil {
 	public static void findItem(TodoList l, String keyword) {
 		int count = 0;
 		
-		if (keyword.length() != 0) {
+		if (keyword.length() > 0) {
 			for (TodoItem myitem : l.getList()) {
 				if (myitem.getTitle().contains(keyword) || myitem.getDesc().contains(keyword)) {
 					System.out.println((l.indexOf(myitem)+1) + ". [" + myitem.getCategory() + "] " + myitem.getTitle() + " - " + myitem.getDesc() + " - " + myitem.getDue_date() + " - " + myitem.getCurrent_date());
@@ -131,6 +131,37 @@ public class TodoUtil {
 		
 		System.out.println("총 " + count + "개의 항목을 찾았습니다.");
 	}
+	
+	public static void findCateItem(TodoList l, String keyword) {
+		int count = 0;
+		
+		if (keyword.length() > 0) {
+			for (TodoItem myitem : l.getList()) {
+				if (myitem.getCategory().contains(keyword)) {
+					System.out.println((l.indexOf(myitem)+1) + ". [" + myitem.getCategory() + "] " + myitem.getTitle() + " - " + myitem.getDesc() + " - " + myitem.getDue_date() + " - " + myitem.getCurrent_date());
+					count++;
+				}
+			}
+		}
+		
+		System.out.println("총 " + count + "개의 항목을 찾았습니다.");
+	}
+	
+	public static void printCates(TodoList l) {
+		int count = 1;
+		String result = l.getList().get(0).getCategory();
+		
+		for (TodoItem myitem : l.getList()) {
+			if (!result.contains(myitem.getCategory())) {
+				result = result + " / " + myitem.getCategory();
+				count++;
+			}
+		}
+		
+		System.out.println(result);
+		System.out.println("총 " + count + "개의 카테고리가 등록되어 있습니다.");
+	}
+
 
 	public static void listAll(TodoList l) {
 		ArrayList<TodoItem> list = l.getList();
